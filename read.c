@@ -40,8 +40,8 @@ int main(int argc, char *argv[])
     do {
         bytes_read = fread(&buffer.header, sizeof(buffer.header), 1, file);
 
+        // syncword has three all one nibbles: FF F0 00 00
         if((buffer.header & 0x0000F0FF) == 0x0000F0FF) {
-            // XXXX 1XXX ...
             metadata.version = buffer.bytes[1] & 0x8 >> 3; // 0000 1000
             metadata.layer = (buffer.bytes[1] & 0x6) >> 1; // 0000 0110
             metadata.crc = buffer.bytes[1] & 0x1; // 0000 0001
